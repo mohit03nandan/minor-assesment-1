@@ -16,7 +16,17 @@ app.use("/admin/category/newImage", admin);
 
 
 
+//error handling
+app.use((req,res,next)=>{    
+     const err = new Error("Something went wrong! Please try after some time.");
+     next(err);
+})
 
+app.use(function(err, req, res, next) {
+    res.status(500);
+    res.send("Oops, something went wrong.")
+ });
+ 
 
 
 //check server is active or not
