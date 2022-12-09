@@ -1,26 +1,46 @@
 const express = require('express')
-const mongoose = require("./config/db")
-const app = express();
+const mongoose = require("mongoose")
+const connect = require("./config/db")
+const admin = require("./routes/admin");
 
-const gallerySchema = new mongoose.Schema({
-    _id: Number,
-    name: String,
+const app = express();
+connect();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
+const gallerySchema = new mongoose.Schema({ 
+    name:{
+        type: String,
+        required: true
+    },
     createdAt: Date,
     updatedAt: Date
 });
 
 const imageSchema = new mongoose.Schema({
-    name: String,
-    _id: Number,
+    name:{
+        type: String,
+        required: true
+    },
     createdAt: Date,
     updatedAt: Date,
     category: [String],
-    imageLink: String,
-    likes: Boolean
+    imageLink: {
+        type: String,
+        required: true
+    },
+    likes: Number
 });
 
 const gallary = mongoose.model('gallary', gallerySchema);
 const image = mongoose.model('image', imageSchema);
+
+
+
+app.use("/api/category", admin );
+app.use("/api/category/newImage", admin);
 
 
 
