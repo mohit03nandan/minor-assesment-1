@@ -9,23 +9,22 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/admin/category", admin );
-app.use("/admin/category/newImage", admin);
+app.use("/admin", admin );
+
+
+
+
+
 
 
 
 
 
 //error handling
-app.use((req,res,next)=>{    
-     const err = new Error("Something went wrong! Please try after some time.");
-     next(err);
-})
+app.use(function (req, res, next) {
+    res.status(404).send("Something went wrong! Please try after some time.");
+  })
 
-app.use(function(err, req, res, next) {
-    res.status(500);
-    res.send("Oops, something went wrong.")
- });
  
 
 
