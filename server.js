@@ -1,6 +1,8 @@
+const mongoose = require("mongoose");
 const express = require('express')
 const connect = require("./config/db")
 const admin = require("./routes/admin");
+const discover = require("./routes/dicover")
 const Errorhandler = require("./middlewares/errorhandler")
 
 const app = express();
@@ -11,8 +13,10 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/admin", admin );
-app.use(Errorhandler);
+app.use("/discover", discover);
 
+
+app.use(Errorhandler);
 
 
 
