@@ -1,6 +1,7 @@
 const express = require('express')
 const connect = require("./config/db")
 const admin = require("./routes/admin");
+const Errorhandler = require("./middlewares/errorhandler")
 
 const app = express();
 connect();
@@ -10,17 +11,14 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use("/admin", admin );
+app.use(Errorhandler);
 
 
 
 
 
 
-
-
-
-
-//error handling
+// error handling
 app.use(function (req, res, next) {
     res.status(404).send("Something went wrong! Please try after some time.");
   })

@@ -1,6 +1,8 @@
 const mongoose = require("mongoose")
 const {Router} = require("express")
 
+
+
 const route = Router()
 
 const gallerySchema = new mongoose.Schema({ 
@@ -23,27 +25,28 @@ const image = mongoose.model('image', imageSchema);
 
 
 
-route.post("/:category", (req,res)=>{
+route.post("/:category", (req,res,next)=>{
      
-    const imageName = req.body.name;
-    const imageLink = req.body.imageLink;
-    const category = req.params.category;
+    try{
+      const imageName = req.body.name;
+      const imageLink = req.body.imageLink;
+      const category = req.params.category;
 
-    const newImage = new image({
+      const newImage = new image({
       name: imageName,
       createdAt: new Date(),
       updatedAt: new Date(),
       category: category,
       imageLink: imageLink,
       likes: 0
-    })
-    res.send("you are inside admin")
+     })
+       res.send("you are inside admin")
+       newImage.save();
+       }catch(error) {
+         next();
+       }
     
-    newImage.save();
-
 })
-
-
 
 
 module.exports = route;
