@@ -56,6 +56,7 @@ route.get("/:category", async (req,res,next)=>{
            
            else if(req.query.suffled){
                  //category?suffled=true
+<<<<<<< HEAD
                    var str = req.query.suffled.split()
                     if(str[0] === 'true'){
                     var result =  await images.find({category: categoryImage});                
@@ -65,6 +66,18 @@ route.get("/:category", async (req,res,next)=>{
                           i = i + 4;  
                       }  
                 }  
+=======
+                   const str = req.query.suffled.split()
+                    if(str[0] === 'true'){
+                    const result =  await images.find({category: categoryImage});   
+                    for (let i =  4 ;  i < result.length; i+4) { 
+                        const final = result.slice(i,i+4); 
+                        res.send(final)
+                         break;  
+                    } 
+                 }    
+             }
+>>>>>>> 208f9ff (added shuffle images api)
            else{
                 const result =  await images.find({category: categoryImage}).limit(4);
                 res.send(result); 
