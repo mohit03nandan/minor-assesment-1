@@ -14,14 +14,24 @@ const mongoose = require("mongoose")
         updatedAt: Date,
         category: [String],
         imageLink: String,
-        likes: Number
+        likes: Number,
+       
     });
     
+    const favouriteSchema = new mongoose.Schema({ 
+        name:String,
+        createdAt: Date,
+        updatedAt: Date
+    });
+    
+
     const gallary = mongoose.model('gallary', gallerySchema);
     const image = mongoose.model('image', imageSchema);
+    const favourite = mongoose.model('favourite', favouriteSchema)
     
     var my_schemas = {
        "gallary": gallary,
-       "image": image
+       "image": image,
+       "favourite": favourite
     };
 module.exports = my_schemas;

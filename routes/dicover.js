@@ -2,11 +2,11 @@ const mongoose = require("mongoose");
 const express = require('express')
 const {Router} = require("express")
 const schema = require("../models/schema");
-const { ObjectID } = require("bson");
 const route = Router()
 
 var gallarie = schema.gallary;
 var images = schema.image;
+
 
 route.get("/", async (req,res,next)=>{
        try{
@@ -37,7 +37,6 @@ route.get("/like", async(req,res,next)=>{
 route.get("/:category", async (req,res,next)=>{
       const categoryImage = req.params.category;
       try{   
-             
              if(req.query.sortBy){ 
                 const str = req.query.sortBy.split(':')  
 
@@ -54,8 +53,19 @@ route.get("/:category", async (req,res,next)=>{
                 }
 
             }  
-
-            else{
+           
+           else if(req.query.suffled){
+                 //category?suffled=true
+                   var str = req.query.suffled.split()
+                    if(str[0] === 'true'){
+                    var result =  await images.find({category: categoryImage});                
+                          var i = 0
+                          var final = result.slice(i,i+4); 
+                          res.send(final)
+                          i = i + 4;  
+                      }  
+                }  
+           else{
                 const result =  await images.find({category: categoryImage}).limit(4);
                 res.send(result); 
             }

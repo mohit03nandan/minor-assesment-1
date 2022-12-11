@@ -6,6 +6,7 @@ const route = Router()
 
 var gallaries = schema.gallary;
 var images = schema.image;
+var fav = schema.favourite;
 
 route.post("/:category", (req,res,next)=>{
      
@@ -22,7 +23,20 @@ route.post("/:category", (req,res,next)=>{
       imageLink: imageLink,
       likes: 0
      })
-       
+     
+//add favourite image in seperate coolection favourite       
+      if(req.query.favourite){
+        var str = req.query.favourite.split()
+        if(str[0] === 'true'){
+          const favourites = new fav({
+             name: imageName,
+             createdAt: new Date(),
+             updatedAt: new Date(),
+          })
+          favourites.save();
+        } 
+      }
+      
 
       const categoryName = req.params.category;
       const gallaryCollection = new gallaries({
@@ -34,6 +48,8 @@ route.post("/:category", (req,res,next)=>{
        res.send("you are inside admin")
        newImage.save();
        gallaryCollection.save();
+      
+
        }catch(error) {
          next();
        }
