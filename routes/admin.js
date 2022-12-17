@@ -7,22 +7,25 @@ const route = Router()
 var gallaries = schema.gallary;
 var images = schema.image;
 
-route.post("/:category", async (req,res,next)=>{
+route.post("/add-category/:category", async (req,res,next)=>{
      
     try{
       const categoryName = req.params.category;
-
-      if (!category) {
+     
+      if (!categoryName) {
         res.status(400).send("Bad Request");
        }
+
 
       const gallaryCollection = new gallaries({
          name: categoryName,
          createdAt: new Date(),
          updatedAt: new Date(),
       })
-        
-       await gallaryCollection.save();
+       
+      console.log(gallaryCollection)
+         
+     await gallaryCollection.save();
        res.send("Category created successfully!")
        
 
