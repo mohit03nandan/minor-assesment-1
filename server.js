@@ -20,7 +20,13 @@ app.use(Errorhandler);
 
 
 
+app.get("/api/health" ,(req,res) =>{
+    res.send(`backend server is active status: active & time:${ new Date()}`)
+})
 
+app.get('/', (req, res) => {
+    res.send("hello world")
+})
 
 // error handling
 app.use(function (req, res, next) {
@@ -31,13 +37,7 @@ app.use(function (req, res, next) {
 
 
 //check server is active or not
-app.get("/api/health" ,(req,res) =>{
-    res.send(`backend server is active status: active & time:${ new Date()}`)
-})
 
-app.get('/', (req, res) => {
-    res.send("hello world")
-})
 
 
 //connection part
