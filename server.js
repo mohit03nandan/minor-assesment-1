@@ -4,9 +4,12 @@ const connect = require("./config/db")
 const admin = require("./routes/admin");
 const discover = require("./routes/dicover")
 const Errorhandler = require("./middlewares/errorhandler")
-
+const cors = require("cors")
 const app = express();
+
 connect();
+
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

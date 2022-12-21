@@ -36,13 +36,23 @@ route.post("/add-category/:category", async (req,res,next)=>{
 })
 
 
+route.get("/get-all-category" , async(req,res,next)=>{
+  try{
+    const result =  await gallaries.find();
+    res.send(result)
+  }catch(error){
+    next();
+  }
+})
+
 route.post("/add-image", async (req, res, next) => {
 try{
 
 
-      const imageName = req.body.name;
-      const imageLink = req.body.imageLink;
-      const category = req.body.category;
+     
+     const imageName = req.body.name;
+     const imageLink = req.body.imageLink;
+     const category = req.body.category;
 
      if (!imageName || !category.length || !imageLink) {
       res.status(400).send("Bad Request");
